@@ -1,0 +1,59 @@
+package com.smit.Hospital.Management.System.Service;
+
+import com.smit.Hospital.Management.System.Entity.Appointment;
+import com.smit.Hospital.Management.System.Entity.Doctor;
+import com.smit.Hospital.Management.System.Entity.Patient;
+import com.smit.Hospital.Management.System.Repository.AppointmentRepository;
+import com.smit.Hospital.Management.System.Repository.DoctorRepository;
+import com.smit.Hospital.Management.System.Repository.PatientRepository;
+import com.smit.Hospital.Management.System.dto.AppointmentResponseDto;
+import com.smit.Hospital.Management.System.dto.CreateAppointmentRequestDto;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AppointmentService {
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
+    private final ModelMapper modelMapper;
+
+    @Transactional
+    public AppointmentResponseDto createNewAppointment(CreateAppointmentRequestDto createAppointmentRequestDto) {
+        Long doctorId = createAppointmentRequestDto.getDoctorId();
+        Long patientId = createAppointmentRequestDto.getPatientId();
+
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with ID: " + patientId));
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new EntityNotFoundException("Doctor not found with ID: " + doctorId));
+        Appointment appointment = Appointment.builder()
+                .reason(createAppointmentRequestDto.getReason())
+                .appointmentTime(createAppointmentRequestDto.getAppointmentTime())
+                .build();
+
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+        patient.getAppointments().add(appointment); // to maintain consistency
+
+        appointment = appointmentRepository.save(appointment);
+        return modelMapper.map(appointment, AppointmentResponseDto.class);
+    }
+
+
+    @Transactional
+    public Appointment reAssignAppointmentToAnotherDoctor(Long appointmentId, Long doctorId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+
+        appointment.setDoctor(doctor); // this will automatically call the update, because it is dirty
+
+        doctor.getAppointments().add(appointment); // just for bidirectional consistency
+
+        return appointment;
+    }
+}

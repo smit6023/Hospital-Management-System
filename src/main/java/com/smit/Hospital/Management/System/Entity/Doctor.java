@@ -23,6 +23,9 @@ public class Doctor {
     private String specialization;
     @Column( unique = true, length = 100)
     private String email;
+    @OneToOne
+    @MapsId
+    private User user;
     @ManyToMany(mappedBy = "doctors")
     private List<Department> departments = new ArrayList<>();
     @OneToMany(mappedBy = "doctor")

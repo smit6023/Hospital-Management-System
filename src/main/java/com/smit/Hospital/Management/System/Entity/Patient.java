@@ -2,9 +2,7 @@ package com.smit.Hospital.Management.System.Entity;
 
 import com.smit.Hospital.Management.System.Entity.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -26,25 +24,39 @@ import java.util.List;
                 @Index(name = "idx_patient_birth_date", columnList = "birthDate")
         }
 )
+ @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@Column( length = 40)
+
+    @Column( length = 40)
     private String name;
+
     private LocalDate birthDate;
+
     @Column(unique = true)
     private String email;
+
     private String gender;
+
+    @OneToOne
+    @MapsId
+    private User user;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
+
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "patient_insurance_id")  // owning side
     private Insurance insurance;
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
 
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Appointment> appointments = new ArrayList<>();
 }

@@ -9,6 +9,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.smit.Hospital.Management.System.Entity.type.RoleType.*;
+
 @RequiredArgsConstructor
 @Configuration
 @Slf4j
@@ -25,6 +27,7 @@ public class WebSecurityConfig{
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/public/**", "/auth/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole(ADMIN.name())
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login(oAuth2 -> oAuth2

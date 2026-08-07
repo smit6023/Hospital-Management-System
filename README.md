@@ -1,6 +1,6 @@
 # Hospital Management System
 
-A backend REST API for a Hospital Management System built using Spring Boot. This project is being developed to learn and implement real-world backend development concepts such as authentication, database management, security, and RESTful API design.
+A backend project of Hospital Management System built using Spring Boot. This project is designed to implement real-world backend development concepts, including secure authentication, role-based authorization, database management, and RESTful API development.
 
 ## Features
 
@@ -17,45 +17,52 @@ A backend REST API for a Hospital Management System built using Spring Boot. Thi
 - Spring Security
 - JWT Authentication
 - OAuth2 Login (Google & GitHub)
+- Role-Based Authorization
+- Permission-Based Access Control
+- Custom Access Denied Handling
 
+
+## Security Features
+
+- JWT-based Authentication
+- Google OAuth2 Login
+- GitHub OAuth2 Login
+- Role-Based Authorization (Admin, Doctor, Patient)
+- Granular Permission-Based Access Control
+- Protected REST Endpoints
+- Custom Access Denied Exception Handling
+- Secure Password Encoding
 
 ## Tech Stack
 
 - Java
 - Spring Boot
-- Spring Data JPA
 - Spring Security
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
 - JWT
 - OAuth2
-- PostgreSQL
 - Maven
-- Hibernate
 - Lombok
 - ModelMapper
 - Bean Validation
 - Postman
 - Git & GitHub
 
+## API Capabilities
 
-
-## API Features
-
-- Authentication using JWT
-- Login with Google and GitHub
-- CRUD operations
-- Request validation
-- Exception handling
+- Authentication & Authorization
+- User Management
+- Author Management
+- Book Management
+- CRUD Operations
 - Pagination & Sorting
-- Search APIs
+- Searching
 - JPQL & Native Queries
 - Entity Relationships
-
-
+- Secure Role-Based APIs
 
 
 ## Author
 Smit Kapuriya
-
----
-
-This project is being developed as a hands-on learning project to strengthen backend development skills using Spring Boot and modern Java technologies.

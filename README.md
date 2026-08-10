@@ -65,4 +65,4 @@ A backend project of Hospital Management System built using Spring Boot. This pr
 
 
 ## Author
-Smit Kapuriya
+Smit Kapuriya  

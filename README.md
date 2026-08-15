@@ -33,7 +33,7 @@ A backend project of Hospital Management System built using Spring Boot. This pr
 - Custom Access Denied Exception Handling
 - Secure Password Encoding
 
-## Tech Stack
+## Tech Stack 
 
 - Java
 - Spring Boot

@@ -1,6 +1,6 @@
 # Hospital Management System
 
-A backend project of Hospital Management System built using Spring Boot. This project is designed to implement real-world backend development concepts, including secure authentication, role-based authorization, database management, and RESTful API development.
+A backend project of Hospital Management System built using Spring Boot. This project is designed to implement real-world backend development concepts, including secure authentication, role-based authorization, database management, and RESTful API development. 
 
 ## Features
 
